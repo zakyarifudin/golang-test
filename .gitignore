@@ -1,0 +1,24 @@
+# 1. Binaries (Hasil build yang ukurannya gede)
+/pos-app
+/golang-test
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+
+# 2. OS Metadata (Sampah bawaan Mac kamu)
+.DS_Store
+Thumbs.db
+
+# 3. Environment Variables (Sangat Penting!)
+.env
+*.env.local
+
+# 4. Air (Log dari hot reload)
+/tmp
+
+# 5. IDE Specific (Opsional, tapi biar rapi)
+.vscode/
+.idea/
