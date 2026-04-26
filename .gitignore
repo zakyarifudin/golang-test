@@ -22,3 +22,6 @@ Thumbs.db
 # 5. IDE Specific (Opsional, tapi biar rapi)
 .vscode/
 .idea/
+
+uploads/*
+!.gitkeep

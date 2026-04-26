@@ -36,6 +36,9 @@ func main() {
 		protected.DELETE("/products/:id", controllers.DeleteProduct)
 	}
 
+	// Daftarkan folder uploads agar bisa diakses publik
+	r.Static("/uploads", "./uploads")
+
 	// 3. Jalankan server di port 8001
 	r.Run(":8001")
 }
