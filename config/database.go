@@ -3,7 +3,9 @@ package config
 import (
 	"fmt"
 	"golang-test/models"
+	"os"
 
+	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -12,14 +14,27 @@ import (
 var DB *gorm.DB
 
 func ConnectDatabase() {
-	// Format: user:password@tcp(host:port)/dbname?charset=utf8mb4&parseTime=True&loc=Local
-	// Di DBngin biasanya user: root, password: kosong, port: 3306
-	dsn := "root:@tcp(127.0.0.1:3306)/golang_test?charset=utf8mb4&parseTime=True&loc=Local"
+	// Load file .env
+	err := godotenv.Load()
+	if err != nil {
+		fmt.Println("Warning: .env file not found, using system default")
+	}
+
+	// Ambil value dari env
+	dbUser := os.Getenv("DB_USER")
+	dbPass := os.Getenv("DB_PASS")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbName := os.Getenv("DB_NAME")
+
+	// Susun DSN (Data Source Name)
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		dbUser, dbPass, dbHost, dbPort, dbName)
 
 	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		panic("Gagal koneksi ke database! Pastikan DBngin sudah jalan.")
+		panic("Gagal koneksi ke database!")
 	}
 
 	err = database.AutoMigrate(&models.User{}, &models.Product{})

@@ -24,6 +24,7 @@ func main() {
 
 	r.POST("/register", controllers.Register)
 	r.POST("/login", controllers.Login)
+	r.POST("/refresh", controllers.Refresh)
 	// Protected Routes (Harus pake Token)
 	protected := r.Group("/api")
 	protected.Use(middlewares.AuthMiddleware())
